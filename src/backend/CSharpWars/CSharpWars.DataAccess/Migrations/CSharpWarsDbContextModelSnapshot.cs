@@ -15,50 +15,70 @@ namespace CSharpWars.DataAccess.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("CSharpWars.Model.Bot", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CurrentHealth");
+                    b.Property<int>("CurrentHealth")
+                        .HasColumnType("int");
 
-                    b.Property<int>("CurrentStamina");
+                    b.Property<int>("CurrentStamina")
+                        .HasColumnType("int");
 
-                    b.Property<int>("FromX");
+                    b.Property<int>("FromX")
+                        .HasColumnType("int");
 
-                    b.Property<int>("FromY");
+                    b.Property<int>("FromY")
+                        .HasColumnType("int");
 
-                    b.Property<int>("LastAttackX");
+                    b.Property<int>("LastAttackX")
+                        .HasColumnType("int");
 
-                    b.Property<int>("LastAttackY");
+                    b.Property<int>("LastAttackY")
+                        .HasColumnType("int");
 
-                    b.Property<int>("MaximumHealth");
+                    b.Property<int>("MaximumHealth")
+                        .HasColumnType("int");
 
-                    b.Property<int>("MaximumStamina");
+                    b.Property<int>("MaximumStamina")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Memory");
+                    b.Property<string>("Memory")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Move");
+                    b.Property<int>("Move")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Orientation");
+                    b.Property<int>("Orientation")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("PlayerId");
+                    b.Property<Guid?>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("SysId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("TimeOfDeath");
+                    b.Property<DateTime>("TimeOfDeath")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("X");
+                    b.Property<int>("X")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Y");
+                    b.Property<int>("Y")
+                        .HasColumnType("int");
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", false);
@@ -73,9 +93,11 @@ namespace CSharpWars.DataAccess.Migrations
 
             modelBuilder.Entity("CSharpWars.Model.BotScript", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Script");
+                    b.Property<string>("Script")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id")
                         .HasAnnotation("SqlServer:Clustered", false);
@@ -83,45 +105,29 @@ namespace CSharpWars.DataAccess.Migrations
                     b.ToTable("BOTS");
                 });
 
-            modelBuilder.Entity("CSharpWars.Model.Message", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("BotName");
-
-                    b.Property<string>("Content");
-
-                    b.Property<DateTime>("DateTime");
-
-                    b.Property<int>("SysId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id")
-                        .HasAnnotation("SqlServer:Clustered", false);
-
-                    b.HasIndex("SysId")
-                        .HasAnnotation("SqlServer:Clustered", true);
-
-                    b.ToTable("MESSAGES");
-                });
-
             modelBuilder.Entity("CSharpWars.Model.Player", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Hashed");
+                    b.Property<string>("Hashed")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("LastDeployment");
+                    b.Property<DateTime>("LastDeployment")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Salt");
+                    b.Property<string>("Salt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("SysId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.HasKey("Id")
@@ -142,10 +148,11 @@ namespace CSharpWars.DataAccess.Migrations
 
             modelBuilder.Entity("CSharpWars.Model.BotScript", b =>
                 {
-                    b.HasOne("CSharpWars.Model.Bot")
-                        .WithOne()
+                    b.HasOne("CSharpWars.Model.Bot", null)
+                        .WithOne("BotScript")
                         .HasForeignKey("CSharpWars.Model.BotScript", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
