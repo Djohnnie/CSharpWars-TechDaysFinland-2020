@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using CSharpWars.DtoModel;
 using CSharpWars.Logic.Interfaces;
 using CSharpWars.Web.Api.Helpers;
 using Microsoft.AspNetCore.Mvc;
@@ -17,12 +16,6 @@ namespace CSharpWars.Web.Api.Controllers
         public Task<IActionResult> GetAllActiveBots()
         {
             return Success(l => l.GetAllActiveBots());
-        }
-
-        [HttpPost]
-        public Task<IActionResult> CreateBot([FromBody] BotToCreateDto bot)
-        {
-            return Created(l => l.CreateBot(bot));
         }
     }
 }
